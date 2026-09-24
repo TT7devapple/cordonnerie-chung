@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cordonnerie Chung</title>
+<meta name="description" content="Cordonnerie Chung, 43 rue Diderot à Vincennes. Réparation de chaussures, teinture du cuir, réparation de sacs et vêtements en cuir depuis 1986.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Libre+Franklin:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground: #E6E8E1;
+    --surface: #F3F4EF;
+    --ink: #1D1F1B;
+    --muted: #5E625A;
+    --line: #C9CCC2;
+    --cordovan: #7A2E22;
+    --cordovan-ink: #FFFFFF;
+    --brass: #9A7431;
+    --ok: #2F6B3A;
+    --closed: #8A3B2E;
+    --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+    --body: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    --wrap: 1120px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #141612;
+      --surface: #1E211C;
+      --ink: #E8E6DF;
+      --muted: #A4A89E;
+      --line: #353930;
+      --cordovan: #C0614E;
+      --cordovan-ink: #140C0A;
+      --brass: #D1AB5C;
+      --ok: #7FC08A;
+      --closed: #E08A77;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #141612;
+    --surface: #1E211C;
+    --ink: #E8E6DF;
+    --muted: #A4A89E;
+    --line: #353930;
+    --cordovan: #C0614E;
+    --cordovan-ink: #140C0A;
+    --brass: #D1AB5C;
+    --ok: #7FC08A;
+    --closed: #E08A77;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font: 400 1rem/1.6 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: 20px; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--cordovan); outline-offset: 3px; border-radius: 2px; }
+  h1, h2, h3 { font-family: var(--display); text-transform: uppercase; line-height: .92; margin: 0; text-wrap: balance; letter-spacing: .005em; }
+  .label { font: 500 .75rem/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  /* Point sellier : la couture comme séparateur */
+  .stitch { height: 0; border: 0; border-top: 2px dashed var(--line); margin: 0; }
+
+  /* Bandeau maquette */
+  .proto { background: var(--ink); color: var(--ground); font: 500 .75rem/1.4 var(--mono); letter-spacing: .06em; text-align: center; padding: 8px 16px; }
+
+  /* En-tête */
+  header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: color-mix(in srgb, var(--ground) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .brand b { font: 900 1.45rem/1 var(--display); text-transform: uppercase; letter-spacing: .02em; }
+  .brand svg { width: 30px; height: 30px; flex: none; }
+  nav.links { display: flex; gap: 22px; }
+  nav.links a { text-decoration: none; font-weight: 500; font-size: .95rem; color: var(--muted); }
+  nav.links a:hover { color: var(--ink); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; border: 2px solid var(--ink); background: var(--ink); color: var(--ground); font: 600 .95rem/1 var(--body); padding: 12px 18px; text-decoration: none; cursor: pointer; border-radius: 2px; transition: transform .15s ease; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.accent { background: var(--cordovan); border-color: var(--cordovan); color: var(--cordovan-ink); }
+  @media (max-width: 760px) { nav.links { display: none; } header.top .btn { padding: 10px 14px; font-size: .88rem; } }
+
+  /* Hero */
+  .hero { padding-block: clamp(40px, 7vw, 88px) clamp(40px, 6vw, 72px); }
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+  .hero h1 { font-size: clamp(3.4rem, 10.5vw, 8.4rem); font-weight: 900; }
+  .hero h1 span { display: block; color: var(--cordovan); }
+  .hero .lede { font-size: clamp(1.05rem, 1.6vw, 1.2rem); max-width: 34ch; margin: 22px 0 28px; color: var(--ink); }
+  .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .since { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .since::before { content: ""; width: 28px; border-top: 2px solid var(--brass); }
+
+  /* Ticket de dépôt */
+  .ticket {
+    position: relative; background: var(--surface); color: var(--ink);
+    padding: 26px 24px 22px; border: 1px solid var(--line);
+    box-shadow: 0 1px 0 var(--line), 0 18px 40px -24px rgba(0,0,0,.35);
+    transform: rotate(1.6deg); max-width: 380px; justify-self: end; width: 100%;
+    font-family: var(--mono); font-size: .88rem;
+  }
+  .ticket::before {
+    content: ""; position: absolute; left: -9px; top: 50%; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--ground); border-right: 1px solid var(--line); transform: translateY(-50%);
+  }
+  .ticket .t-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-bottom: 14px; border-bottom: 2px dashed var(--line); }
+  .ticket .t-head strong { font: 800 1.35rem/1 var(--display); text-transform: uppercase; letter-spacing: .03em; }
+  .ticket .no { color: var(--cordovan); font-weight: 500; white-space: nowrap; }
+  .ticket dl { margin: 14px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; }
+  .ticket dt { color: var(--muted); text-transform: uppercase; font-size: .72rem; letter-spacing: .1em; padding-top: 2px; }
+  .ticket dd { margin: 0; }
+  .status { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
+  .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+  .status.open { color: var(--ok); }
+  .status.shut { color: var(--closed); }
+  .ticket .tear { margin-top: 18px; padding-top: 12px; border-top: 2px dashed var(--line); display: flex; justify-content: space-between; color: var(--muted); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+  @media (max-width: 860px) {
+    .hero .wrap { grid-template-columns: 1fr; }
+    .ticket { justify-self: start; transform: rotate(-1deg); }
+  }
+
+  /* Sections */
+  section.block { padding-block: clamp(56px, 8vw, 104px); }
+  .sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: end; margin-bottom: 44px; }
+  .sec-head h2 { font-size: clamp(2.4rem, 5.5vw, 4.2rem); font-weight: 800; }
+  .sec-head p { margin: 0; color: var(--muted); max-width: 46ch; justify-self: end; }
+  @media (max-width: 760px) { .sec-head { grid-template-columns: 1fr; } .sec-head p { justify-self: start; } }
+
+  /* Prestations : liste d'atelier, pas de cartes */
+  .services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 2px solid var(--ink); }
+  .svc { padding: 28px 24px 30px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-rows: auto auto 1fr; gap: 10px; }
+  .svc + .svc { padding-left: 24px; }
+  .services .svc:nth-child(3n+1) { padding-left: 0; }
+  .services .svc:not(:nth-child(3n)) { border-right: 1px solid var(--line); }
+  .svc svg { width: 40px; height: 40px; color: var(--cordovan); }
+  .svc h3 { font-size: 1.7rem; font-weight: 800; }
+  .svc p { margin: 0; color: var(--muted); max-width: 36ch; }
+  @media (max-width: 900px) {
+    .services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .services .svc { padding-left: 24px !important; border-right: 0 !important; }
+    .services .svc:nth-child(odd) { padding-left: 0 !important; border-right: 1px solid var(--line) !important; }
+  }
+  @media (max-width: 560px) {
+    .services { grid-template-columns: 1fr; }
+    .services .svc { padding-left: 0 !important; padding-right: 0; border-right: 0 !important; }
+  }
+
+  /* Déroulé : vraie séquence */
+  .steps-band { background: var(--ink); color: var(--ground); }
+  .steps-band .label { color: color-mix(in srgb, var(--ground) 65%, var(--ink)); }
+  .steps-band .sec-head p { color: color-mix(in srgb, var(--ground) 72%, var(--ink)); }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; counter-reset: step; }
+  .steps li { counter-increment: step; border-top: 2px dashed color-mix(in srgb, var(--ground) 35%, var(--ink)); padding-top: 20px; }
+  .steps li::before { content: "Étape " counter(step); display: block; font: 500 .75rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--brass); margin-bottom: 12px; }
+  .steps h3 { font-size: 1.9rem; font-weight: 800; margin-bottom: 10px; }
+  .steps p { margin: 0; color: color-mix(in srgb, var(--ground) 78%, var(--ink)); max-width: 34ch; }
+  @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+
+  /* Avis + histoire */
+  .story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 80px); align-items: start; }
+  .years { font: 900 clamp(5rem, 16vw, 11rem)/.8 var(--display); color: var(--cordovan); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .years small { display: block; font: 500 .8rem/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 14px; }
+  .story p.body { font-size: 1.08rem; max-width: 52ch; margin: 22px 0 0; }
+  blockquote { margin: 0; padding: 30px 28px; background: var(--surface); border: 1px solid var(--line); }
+  blockquote .stars { color: var(--brass); letter-spacing: .2em; font-size: 1.1rem; }
+  blockquote p { font-size: clamp(1.2rem, 2.2vw, 1.5rem); line-height: 1.45; margin: 14px 0 18px; font-weight: 500; text-wrap: pretty; }
+  blockquote footer { font: 400 .8rem/1.4 var(--mono); color: var(--muted); letter-spacing: .04em; }
+  @media (max-width: 760px) { .story { grid-template-columns: 1fr; } }
+
+  /* Horaires + accès */
+  .visit { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); }
+  .hours { width: 100%; border-collapse: collapse; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .hours td { padding: 13px 0; border-bottom: 1px solid var(--line); }
+  .hours td:last-child { text-align: right; }
+  .hours tr.today td { color: var(--cordovan); font-weight: 500; }
+  .hours tr.today td:first-child::after { content: " · aujourd'hui"; font-size: .75rem; letter-spacing: .06em; }
+  .hours tr.off td:last-child { color: var(--muted); }
+  .contact { display: grid; gap: 26px; align-content: start; }
+  .contact .big { font: 800 clamp(2rem, 4vw, 2.8rem)/1 var(--display); text-transform: uppercase; }
+  .phone-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .phone { font: 500 clamp(1.5rem, 3vw, 1.9rem)/1 var(--mono); letter-spacing: .02em; user-select: all; font-variant-numeric: tabular-nums; }
+  .copy { font: 500 .8rem/1 var(--mono); background: transparent; color: var(--ink); border: 1px solid var(--line); padding: 8px 10px; cursor: pointer; border-radius: 2px; }
+  .copy:hover { border-color: var(--ink); }
+  .perks { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
+  .perks li { font: 500 .78rem/1 var(--mono); letter-spacing: .04em; border: 1px solid var(--line); padding: 8px 10px; border-radius: 2px; color: var(--muted); }
+  @media (max-width: 760px) { .visit { grid-template-columns: 1fr; } }
+
+  footer.site { border-top: 2px solid var(--ink); padding-block: 28px 40px; }
+  footer.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; color: var(--muted); font-size: .88rem; }
+  footer.site b { color: var(--ink); font: 800 1.2rem/1 var(--display); text-transform: uppercase; }
+
+  /* Entrée : visible au repos, léger glissé */
+  @keyframes rise { from { transform: translateY(10px); } to { transform: none; } }
+  .hero h1, .hero .lede, .hero .ctas, .ticket { animation: rise .6s cubic-bezier(.2,.7,.2,1) both; }
+  .hero .lede { animation-delay: .06s; } .hero .ctas { animation-delay: .12s; } .ticket { animation-delay: .18s; }
+</style>
+</head>
+<body>
+
+<div class="proto">Maquette — proposition de site pour la Cordonnerie Chung</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Cordonnerie Chung, accueil">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="2" fill="var(--cordovan)"/>
+        <path d="M7 19.5h9.5c1.4 0 2.6-.6 3.6-1.6l2.4-2.4c.8-.8 2-.9 2.8-.1.7.7.7 1.8 0 2.5l-1.2 1.3c-.3.3-.4.8-.4 1.2V23H7v-3.5Z" fill="var(--cordovan-ink)"/>
+        <path d="M9 12.5c2 1.6 5 1.6 7 0" stroke="var(--cordovan-ink)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1.5 2.2"/>
+      </svg>
+      <b>Chung</b>
+    </a>
+    <nav class="links" aria-label="Navigation principale">
+      <a href="#prestations">Prestations</a>
+      <a href="#atelier">L'atelier</a>
+      <a href="#venir">Horaires &amp; accès</a>
+    </nav>
+    <a class="btn" href="tel:+33143745767">01 43 74 57 67</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="label since">Vincennes · depuis 1986</div>
+        <h1>Cordonnerie <span>Chung</span></h1>
+        <p class="lede">Chaussures, sacs et vêtements en cuir&nbsp;: on répare, on reteint, on redonne vie à ce que vous aimez porter. Au 43 rue Diderot depuis presque quarante ans.</p>
+        <div class="ctas">
+          <a class="btn accent" href="#venir">Voir les horaires</a>
+          <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Cordonnerie+Chung+43+rue+Diderot+94300+Vincennes" target="_blank" rel="noopener">Itinéraire</a>
+        </div>
+      </div>
+
+      <aside class="ticket" aria-label="Informations pratiques">
+        <div class="t-head">
+          <strong>Ticket de dépôt</strong>
+          <span class="no">N° 1986</span>
+        </div>
+        <dl>
+          <dt>Adresse</dt><dd>43 rue Diderot<br>94300 Vincennes</dd>
+          <dt>Tél.</dt><dd>01 43 74 57 67</dd>
+          <dt>Horaires</dt><dd>Lun.–sam. · 9h–18h</dd>
+          <dt>Statut</dt><dd><span class="status" id="status">—</span></dd>
+        </dl>
+        <div class="tear"><span>Atelier artisanal</span><span>Conserver ce ticket</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <hr class="stitch">
+
+  <section class="block" id="prestations">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="label" style="margin-bottom:14px">Prestations</div>
+          <h2>Tout ce qui est en cuir passe par l'établi</h2>
+        </div>
+        <p>Chaque pièce est examinée en boutique avant d'être prise en charge. Le prix et le délai vous sont annoncés au dépôt, sans surprise au retrait.</p>
+      </div>
+
+      <div class="services">
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 26h17c2.4 0 4.6-1 6.3-2.7l3-3c1.3-1.3 3.4-1.3 4.7 0 1.3 1.3 1.3 3.4 0 4.7l-1.6 1.7V32H4v-6Z"/><path d="M4 32h32" stroke-dasharray="2 3"/></svg>
+          <h3>Ressemelage</h3>
+          <p>Semelles et talons remplacés, patins posés, bouts renforcés. Pour chaussures de ville, bottes et baskets.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M14 6h12v6l-2 3v5H16v-5l-2-3V6Z"/><path d="M16 20c-4 3-6 7-6 11 0 2 1.5 3 3.5 3h13c2 0 3.5-1 3.5-3 0-4-2-8-6-11"/><path d="M11 28h18"/></svg>
+          <h3>Teinture du cuir</h3>
+          <p>Recoloration sur mesure pour raviver une teinte passée ou changer de couleur. Chaussures, sacs, blousons.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 15h26l-2 19H9L7 15Z"/><path d="M14 15v-3a6 6 0 0 1 12 0v3"/><path d="M10 21h20" stroke-dasharray="2 3"/></svg>
+          <h3>Maroquinerie</h3>
+          <p>Poignées, anses, coutures, fermetures et coins usés&nbsp;: réparation de sacs et petite maroquinerie.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M14 5l6 4 6-4 9 6-4 7-3-2v19H12V16l-3 2-4-7 9-6Z"/><path d="M20 9v26" stroke-dasharray="2 3"/></svg>
+          <h3>Vêtements en cuir</h3>
+          <p>Blousons, vestes et ceintures&nbsp;: reprise des coutures, remplacement de fermetures, soin des surfaces.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M8 30c5-2 8-6 10-12l6-10 6 4-6 10c-3 5-7 8-14 10l-2-2Z"/><path d="M24 8l2-3 6 4-2 3"/><path d="M6 34h12"/></svg>
+          <h3>Soin &amp; entretien</h3>
+          <p>Nettoyage, nourrissage et cirage pour protéger le cuir et prolonger la vie de vos pièces préférées.</p>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="20" r="7"/><circle cx="13" cy="20" r="2"/><path d="M20 20h15v4h-3v4h-4v-4h-3"/></svg>
+          <h3>Multiservice</h3>
+          <p>La boutique du quotidien&nbsp;: demandez en passant, l'artisan vous oriente sur ce qui peut être fait.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block steps-band">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="label" style="margin-bottom:14px">Comment ça marche</div>
+          <h2>Sans rendez-vous</h2>
+        </div>
+        <p>Passez aux heures d'ouverture, du lundi au samedi. Pas besoin de réserver.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Vous déposez</h3><p>Apportez votre pièce en boutique. On regarde ensemble ce qui peut être fait.</p></li>
+        <li><h3>On vous annonce</h3><p>Prix et délai confirmés sur place, avec un ticket de dépôt à conserver.</p></li>
+        <li><h3>Vous récupérez</h3><p>Revenez avec votre ticket à la date convenue&nbsp;: la pièce vous attend, prête à reporter.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="atelier">
+    <div class="wrap story">
+      <div>
+        <div class="years" id="years">39<small>ans rue Diderot</small></div>
+        <p class="body">Ouverte en juillet 1986, la Cordonnerie Chung fait partie du paysage du centre de Vincennes. Même adresse, même exigence&nbsp;: un travail soigné, fait à la main, et le temps d'expliquer ce qui sera fait sur chaque pièce.</p>
+      </div>
+      <blockquote>
+        <div class="stars" aria-label="Note : 5 sur 5">★★★★★</div>
+        <p>«&nbsp;Un vrai professionnel compétent. Accueil toujours agréable. Je suis toujours étonné de la gentillesse ressentie dans cette boutique.&nbsp;»</p>
+        <footer>Avis client · PagesJaunes · août 2025</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <hr class="stitch">
+
+  <section class="block" id="venir">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="label" style="margin-bottom:14px">Horaires &amp; accès</div>
+          <h2>Passez à la boutique</h2>
+        </div>
+        <p>À quelques minutes à pied de l'avenue de Paris et du RER A Vincennes.</p>
+      </div>
+      <div class="visit">
+        <table class="hours" aria-label="Horaires d'ouverture">
+          <tbody id="hours">
+            <tr data-d="1"><td>Lundi</td><td>09:00 – 18:00</td></tr>
+            <tr data-d="2"><td>Mardi</td><td>09:00 – 18:00</td></tr>
+            <tr data-d="3"><td>Mercredi</td><td>09:00 – 18:00</td></tr>
+            <tr data-d="4"><td>Jeudi</td><td>09:00 – 18:00</td></tr>
+            <tr data-d="5"><td>Vendredi</td><td>09:00 – 18:00</td></tr>
+            <tr data-d="6"><td>Samedi</td><td>09:00 – 18:00</td></tr>
+            <tr data-d="0" class="off"><td>Dimanche</td><td>Fermé</td></tr>
+          </tbody>
+        </table>
+        <div class="contact">
+          <div>
+            <div class="label" style="margin-bottom:10px">Adresse</div>
+            <div class="big">43 rue Diderot<br>94300 Vincennes</div>
+          </div>
+          <div>
+            <div class="label" style="margin-bottom:10px">Téléphone</div>
+            <div class="phone-row">
+              <span class="phone" id="phone">01 43 74 57 67</span>
+              <button class="copy" id="copy" type="button">Copier</button>
+            </div>
+          </div>
+          <ul class="perks" aria-label="Accès">
+            <li>Accès PMR</li>
+            <li>Stationnement à proximité</li>
+            <li>Sans rendez-vous</li>
+          </ul>
+          <div><a class="btn accent" href="https://www.google.com/maps/search/?api=1&query=Cordonnerie+Chung+43+rue+Diderot+94300+Vincennes" target="_blank" rel="noopener">Ouvrir dans Google Maps</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <b>Cordonnerie Chung</b>
+    <span>43 rue Diderot, 94300 Vincennes · 01 43 74 57 67</span>
+    <span>Artisan cordonnier depuis 1986</span>
+  </div>
+</footer>
+
+<script>
+  // Heure de Paris, quel que soit le fuseau du visiteur
+  (function () {
+    var parts = {};
+    try {
+      new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Paris', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false })
+        .formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
+    } catch (e) {}
+    var days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+    var d = parts.weekday in days ? days[parts.weekday] : new Date().getDay();
+    var mins = parts.hour ? (+parts.hour % 24) * 60 + +parts.minute : new Date().getHours() * 60 + new Date().getMinutes();
+    var open = d !== 0 && mins >= 540 && mins < 1080;
+
+    var s = document.getElementById('status');
+    if (open) { s.className = 'status open'; s.textContent = 'Ouvert · ferme à 18h'; }
+    else {
+      s.className = 'status shut';
+      var next = (d === 6 && mins >= 1080) || d === 0 ? 'lundi 9h' : (mins < 540 ? "aujourd'hui 9h" : 'demain 9h');
+      s.textContent = 'Fermé · ouvre ' + next;
+    }
+    var row = document.querySelector('#hours tr[data-d="' + d + '"]');
+    if (row) row.classList.add('today');
+
+    var y = new Date().getFullYear() - 1986 - (new Date().getMonth() < 6 ? 1 : 0);
+    document.getElementById('years').firstChild.nodeValue = y;
+  })();
+
+  document.getElementById('copy').addEventListener('click', function () {
+    var btn = this, txt = document.getElementById('phone').textContent;
+    function done(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = 'Copier'; }, 1800); }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('phone'));
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      done('Sélectionné');
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(function () { done('Copié'); }, fallback);
+    else fallback();
+  });
+</script>
+</body>
+</html>
